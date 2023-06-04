@@ -6,6 +6,8 @@ class PlayerBullet{
     constructor(x,y, lookAtDirection){
         this.x = x;
         this.y = y;
+        this.width = 10;
+        this.height = 10;
         this.lookAtDirection = lookAtDirection;
         this.shootDirection();
         setTimeout(() => {
@@ -16,7 +18,7 @@ class PlayerBullet{
     {
         c.beginPath();
         c.fillStyle = 'green';
-        c.fillRect(this.x, this.y, 10, 10);
+        c.fillRect(this.x, this.y, this.width, this.height);
         c.fill;
     }
     shootDirection()
@@ -58,9 +60,21 @@ class PlayerBullet{
 
     }
 
+    collision()
+    {
+        wallBlockArray.forEach((wallBlock) => {
+            console.log('wall X: '+wallBlock.x+' bullet X: '+this.x );
+            if(wallBlock.x + wallBlock.width >= this.x && wallBlock.x < this.x + this.width && wallBlock.y + wallBlock.height >= this.y && wallBlock.y < this.y + this.height)
+            {
+                this.deleteObject();
+            }
+  
+          });
 
+    }
     update()
     {
+        this.collision();
         this.draw()
         this.x += this.speed * this.directionX;
         this.y += this.speed * this.directionY;

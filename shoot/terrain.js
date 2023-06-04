@@ -2,13 +2,15 @@ class WallBlock
 {
     constructor(x, y, width, height, color)
     {
-        //walls[utils.asGridCoord(x, y)] = true;
+        utils.addWall(x, y);
         this.x = utils.withGrid(x);
         this.y = utils.withGrid(y);
+        console.log(this.x);
         this.width = width;
         this.height = height;
         this.color = color;
 
+        console.log(utils.walls);
     }
     draw()
     {
@@ -18,7 +20,6 @@ class WallBlock
         c.fill;
 
     }
-
     update()
     {
         this.draw();

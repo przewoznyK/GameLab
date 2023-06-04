@@ -11,6 +11,11 @@ const utils = {
     asGridCoord(x,y) {
         return `${x*32},${y*32}`
     },
+    walls: { },
+    addWall(x, y){
+        const gridCoord = utils.asGridCoord(x, y);
+        utils.walls[gridCoord] = true;
+      },
     nextPosition(initialX, initialY, direction)
     {
         let x = initialX;
@@ -33,7 +38,7 @@ const utils = {
 function isSpaceTaken(currentX, currentY, direction)
 {
     const {x,y} = utils.nextPosition(currentX, currentY, direction);
-    return walls[`${x},${y}`] || false;
+    return utils.walls[`${x},${y}`] || false;
 }
 
 function collision(checkingObject, targetObject)
