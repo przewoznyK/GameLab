@@ -2,11 +2,13 @@ class WallBlock
 {
     constructor(x, y, width, height, color)
     {
-        this.x = x * 32;
-        this.y = y * 32;
+        //walls[utils.asGridCoord(x, y)] = true;
+        this.x = utils.withGrid(x);
+        this.y = utils.withGrid(y);
         this.width = width;
         this.height = height;
         this.color = color;
+
     }
     draw()
     {
@@ -14,7 +16,7 @@ class WallBlock
         c.fillStyle = this.color;
         c.fillRect(this.x, this.y, this.width, this.height);
         c.fill;
-        collision(this, player);
+
     }
 
     update()

@@ -9,14 +9,16 @@ class Player
     canMoveBool = true;
     eyePositionX = 0;
     eyePositionY = 0;
-    lookAtDirection = 'right';
+    lookAtDirection = 'left';
+    collisionResult = 'none';
     constructor(x, y, width, height, speed, color)
     {
         this.x = x * 32;
         this.y = y * 32;
+        console.log(this.x);
         this.width = width;
         this.height = height;
-        this.speed = speed;
+        this.speed = 32;
         this.color = color;
     }
     // Eye position
@@ -61,41 +63,58 @@ class Player
         c.fillRect(this.eyePositionX, this.eyePositionY, this.width/2, this.height/4);
         c.fill;
     }
+    checkCollision() {
+        let collisionResult = null;
+      
+        wallBlockArray.forEach((wallBlock) => {
+          const result = collision(this, wallBlock);
+            collisionResult = result;
+
+        });
+      
+        return collisionResult;
+      }
+
     move()
     {
+
         if(this.canMoveBool)
         {
             document.onkeydown  = (e) => {
                 switch(e.key){
                     case 'a':
-                        if(this.canMoveLeftBool) {
-                            this.horizontal = -1;
+                        if(!isSpaceTaken(this.x,this.y, 'left'))
+                        {
                             this.lookAtDirection = 'left';
+                            this.x -= this.speed;
                         }
                     break;
                     case 'd':
-                        if(this.canMoveRightBool) {
-                            this.horizontal = 1;
+                        if(!isSpaceTaken(this.x,this.y, 'right'))
+                        {
                             this.lookAtDirection = 'right';
+                            this.x += this.speed;
                         }
                     break;
                     case 'w':
-                        if(this.canMoveUpBool){
-                            this.vertical = -1;
+                        if(!isSpaceTaken(this.x,this.y, 'up'))
+                        {
                             this.lookAtDirection = 'up';
+                            this.y -= this.speed;
                         }
-                  
                     break;
                     case 's':
-                        if(this.canMoveDownBool) {
-                           this.vertical = 1;
-                           this.lookAtDirection = 'down';
+                        if(!isSpaceTaken(this.x,this.y, 'down'))
+                        {
+                            this.lookAtDirection = 'down';
+                            this.y += this.speed;
                         }
                     break;
                     case ' ':
                         bulletPlayerArray.push(new PlayerBullet(this.x, this.y, this.lookAtDirection));
                         bulletPlayerArray[0].update();
                     break;
+
                 }
           };
         document.onkeyup = (e) => {
@@ -103,8 +122,8 @@ class Player
             if(e.key == 'w' || e.key == 's') this.vertical = 0;
         }
 
-        this.x = this.x + this.speed * this.horizontal;
-        this.y = this.y + this.speed * this.vertical;
+      //  this.x = this.x + this.speed * this.horizontal;
+     //   this.y = this.y + this.speed * this.vertical;
        
         
         }
