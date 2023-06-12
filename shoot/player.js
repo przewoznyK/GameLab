@@ -71,6 +71,7 @@ class Player
             collisionResult = result;
 
         });
+      
         return collisionResult;
       }
 
