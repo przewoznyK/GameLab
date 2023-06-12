@@ -5,12 +5,10 @@ class WallBlock
         utils.addWall(x, y);
         this.x = utils.withGrid(x);
         this.y = utils.withGrid(y);
-        console.log(this.x);
         this.width = width;
         this.height = height;
         this.color = color;
-
-        console.log(utils.walls);
+        this.type = 'wall';
     }
     draw()
     {
