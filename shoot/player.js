@@ -11,15 +11,16 @@ class Player
     eyePositionY = 0;
     lookAtDirection = 'left';
     collisionResult = 'none';
-    constructor(x, y, width, height, speed, color)
+    untouchableBool = false;
+    constructor(x, y, width, height, speed, color, hp)
     {
         this.x = x * 32;
         this.y = y * 32;
-        console.log(this.x);
         this.width = width;
         this.height = height;
-        this.speed = 32;
+        this.speed = speed;
         this.color = color;
+        this.hp = hp;
     }
     // Eye position
     lookAt(direction)
@@ -52,6 +53,19 @@ class Player
            
 
     }
+
+    takenDamage(seconds)
+    {
+        this.hp--;
+        this.color = 'grey';
+        this.untouchableBool = true;
+        setTimeout(()=> {
+            this.untouchableBool = false;
+            this.color = 'blue';
+        }, seconds)
+    }
+
+
     draw()
     {
         c.beginPath();
@@ -63,21 +77,9 @@ class Player
         c.fillRect(this.eyePositionX, this.eyePositionY, this.width/2, this.height/4);
         c.fill;
     }
-    checkCollision() {
-        let collisionResult = null;
-      
-        wallBlockArray.forEach((wallBlock) => {
-          const result = collision(this, wallBlock);
-            collisionResult = result;
-
-        });
-      
-        return collisionResult;
-      }
 
     move()
     {
-
         if(this.canMoveBool)
         {
             document.onkeydown  = (e) => {
@@ -111,8 +113,7 @@ class Player
                         }
                     break;
                     case ' ':
-                        bulletPlayerArray.push(new PlayerBullet(this.x, this.y, this.lookAtDirection));
-                        bulletPlayerArray[0].update();
+                        bulletPlayerArray.push(new PlayerBullet(this.x, this.y, this.lookAtDirection, 'green'));
                     break;
 
                 }

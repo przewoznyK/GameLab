@@ -1,6 +1,7 @@
 // Arrays
 
 bulletPlayerArray = [];
+bulletEnemyArray = [];
 wallBlockArray = [];
 // Functions
 
