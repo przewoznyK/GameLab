@@ -24,7 +24,9 @@ wallBlockArray.push(new WallBlock(10, 18, 32, 32, 'black'));
 wallBlockArray.push(new WallBlock(10, 19, 32, 32, 'black'));
 var player = new Player(5, 5, 32, 32, 32, 'blue', 1);
 var EnemyArray = [
-
+  new Enemy(8, 5, 32, 32, 'red', 3, 'right'),
+  new EnemyY(8, 8, 32, 32, 'green', 3, 'up'),
+  new EnemyFollowPlayer(10, 10, 32, 32, 'yellow', 3, 'up'),
 ]
 walls = {
 
