@@ -1,10 +1,9 @@
-
 class Bullet {
     directionX = 1;
     directionY = 1;
     constructor(x, y, lookAtDirection, color, speed = 5, timeToDelete = 2000) {
-        this.x = x;
-        this.y = y;
+        this.x = x+10;
+        this.y = y+10;
         this.width = 10;
         this.height = 10;
         this.lookAtDirection = lookAtDirection;
@@ -13,7 +12,11 @@ class Bullet {
         this.timeToDelete = timeToDelete;
         this.shootDirection();
         setTimeout(() => {
-            this.deleteObject();
+            if(this.constructor.name == 'PlayerBullet'){
+                deleteObjectFromArray(bulletPlayerArray, this);
+            } else {
+                deleteObjectFromArray(bulletEnemyArray, this);
+            }
           }, this.timeToDelete);
     }
     draw()
@@ -51,14 +54,19 @@ class Bullet {
             break;
         }
     }
-    deleteObject() {
-        throw new Error('Metoda deleteObject() musi zostać zaimplementowana przez klasę podrzędną.');
-    }
 
     collisionWithTerrain() {
         wallBlockArray.forEach((object) => {
             if (object.x + object.width >= this.x && object.x < this.x + this.width && object.y + object.height >= this.y && object.y < this.y + this.height) {
-                this.deleteObject();
+                if(object.hasOwnProperty('hp'))
+                {
+                    object.hp--;
+                }
+                if(this.constructor.name == 'PlayerBullet'){
+                    deleteObjectFromArray(bulletPlayerArray, this);
+                } else {
+                    deleteObjectFromArray(bulletEnemyArray, this);
+                }
             }
         });
     }
@@ -77,18 +85,11 @@ class Bullet {
 }
 
 class PlayerBullet extends Bullet {
-    deleteObject() {
-        const indexToRemove = bulletPlayerArray.indexOf(this);
-        if (indexToRemove !== -1) {
-            bulletPlayerArray.splice(indexToRemove, 1); // Usuń obiekt z tablicy
-        }
-    }
-
     collisionWithTarget() {
         EnemyArray.forEach((object) => {
             if (object.x + object.width >= this.x && object.x < this.x + this.width && object.y + object.height >= this.y && object.y < this.y + this.height) {
                 object.hp--;
-                this.deleteObject();
+                deleteObjectFromArray(bulletPlayerArray, this);
             }
         });
     }
@@ -97,19 +98,13 @@ class PlayerBullet extends Bullet {
 }
 
 class EnemyBullet extends Bullet {
-    deleteObject() {
-        const indexToRemove = bulletEnemyArray.indexOf(this);
-        if (indexToRemove !== -1) {
-            bulletEnemyArray.splice(indexToRemove, 1); // Usuń obiekt z tablicy
-        }
-    }
 
     collisionWithTarget() {
         if (player.x + player.width >= this.x && player.x < this.x + this.width && player.y + player.height >= this.y && player.y < this.y + this.height) {
             if(!player.untouchableBool)
             {
                 player.takenDamage(3000);
-                this.deleteObject();
+                deleteObjectFromArray(bulletEnemyArray, this);
             }
 
         }

@@ -17,6 +17,9 @@ const utils = {
         const gridCoord = utils.asGridCoord(x, y);
         utils.walls[gridCoord] = true;
       },
+    deleteWall(x,y){
+        utils.walls[`${x},${y}`] = false;
+    },
     nextPosition(initialX, initialY, direction)
     {
         let x = initialX;
@@ -35,6 +38,15 @@ const utils = {
     }
 }
 
+function deleteObjectFromArray(array, object) {
+    const indexToRemove = array.indexOf(object);
+
+    if (indexToRemove !== -1) {
+        array.splice(indexToRemove, 1); 
+  
+    }
+
+}
 
 function isSpaceTaken(currentX, currentY, direction)
 {

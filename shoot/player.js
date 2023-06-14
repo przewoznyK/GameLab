@@ -1,5 +1,4 @@
-class Player
-{
+class Player {
     horizontal = 0;
     vertical = 0;
     canMoveLeftBool = true;
@@ -12,10 +11,9 @@ class Player
     lookAtDirection = 'left';
     collisionResult = 'none';
     untouchableBool = false;
-    constructor(x, y, width, height, speed, color, hp)
-    {
-        this.x = x * 32;
-        this.y = y * 32;
+    constructor(x, y, width, height, speed, color, hp) {
+        this.x = utils.withGrid(x);
+        this.y = utils.withGrid(y);
         this.width = width;
         this.height = height;
         this.speed = speed;
@@ -23,116 +21,107 @@ class Player
         this.hp = hp;
     }
     // Eye position
-    lookAt(direction)
-    {
-        switch (direction){
-             case 'left':
+    lookAt(direction) {
+        switch (direction) {
+            case 'left':
                 this.eyePositionX = this.x + 0;
                 this.eyePositionY = this.y + 5;
-             break;
-             case 'right':
+                break;
+            case 'right':
                 this.eyePositionX = this.x + 11;
                 this.eyePositionY = this.y + 5;
-             break;
-             case 'right':
+                break;
+            case 'right':
                 this.eyePositionX = this.x + 10;
                 this.eyePositionY = this.y + 5;
-             break;
-             case 'up':
+                break;
+            case 'up':
                 this.eyePositionX = this.x + 6;
                 this.eyePositionY = this.y + 1;
-             break;
-             case 'down':
+                break;
+            case 'down':
                 this.eyePositionX = this.x + 6;
                 this.eyePositionY = this.y + 10;
-             break;
-             default:
+                break;
+            default:
                 this.eyePositionX = this.x;
                 this.eyePositionY = this.y;
         }
-           
+
 
     }
 
-    takenDamage(seconds)
-    {
+    takenDamage(seconds) {
         this.hp--;
         this.color = 'grey';
         this.untouchableBool = true;
-        setTimeout(()=> {
+        setTimeout(() => {
             this.untouchableBool = false;
             this.color = 'blue';
         }, seconds)
     }
 
 
-    draw()
-    {
+    draw() {
+        // Player square
         c.beginPath();
         c.fillStyle = this.color;
         c.fillRect(this.x, this.y, this.width, this.height);
         c.fill;
+        // Player border
+        c.lineWidth = 2; 
+        c.rect(this.x, this.y, this.width, this.height); 
+        c.stroke();     
+        // Eye
         c.beginPath();
         c.fillStyle = 'black';
-        c.fillRect(this.eyePositionX, this.eyePositionY, this.width/2, this.height/4);
+        c.fillRect(this.eyePositionX, this.eyePositionY, this.width / 2, this.height / 4);
         c.fill;
     }
 
-    move()
-    {
-        if(this.canMoveBool)
-        {
-            document.onkeydown  = (e) => {
-                switch(e.key){
+    move() {
+        if (this.canMoveBool) {
+            document.onkeydown = (e) => {
+                switch (e.key) {
                     case 'a':
-                        if(!isSpaceTaken(this.x,this.y, 'left'))
-                        {
+                        if (!isSpaceTaken(this.x, this.y, 'left')) {
                             this.lookAtDirection = 'left';
                             this.x -= this.speed;
                         }
-                    break;
+                        break;
                     case 'd':
-                        if(!isSpaceTaken(this.x,this.y, 'right'))
-                        {
+                        if (!isSpaceTaken(this.x, this.y, 'right')) {
                             this.lookAtDirection = 'right';
                             this.x += this.speed;
                         }
-                    break;
+                        break;
                     case 'w':
-                        if(!isSpaceTaken(this.x,this.y, 'up'))
-                        {
+                        if (!isSpaceTaken(this.x, this.y, 'up')) {
                             this.lookAtDirection = 'up';
                             this.y -= this.speed;
                         }
-                    break;
+                        break;
                     case 's':
-                        if(!isSpaceTaken(this.x,this.y, 'down'))
-                        {
+                        if (!isSpaceTaken(this.x, this.y, 'down')) {
                             this.lookAtDirection = 'down';
                             this.y += this.speed;
                         }
-                    break;
+                        break;
                     case ' ':
-                        bulletPlayerArray.push(new PlayerBullet(this.x, this.y, this.lookAtDirection, 'green'));
-                    break;
+                        bulletPlayerArray.push(new PlayerBullet(this.x, this.y, this.lookAtDirection, this.color));
+                        break;
 
                 }
-          };
-        document.onkeyup = (e) => {
-            if(e.key == 'a' || e.key == 'd') this.horizontal = 0;
-            if(e.key == 'w' || e.key == 's') this.vertical = 0;
+            };
+            document.onkeyup = (e) => {
+                if (e.key == 'a' || e.key == 'd') this.horizontal = 0;
+                if (e.key == 'w' || e.key == 's') this.vertical = 0;
+            }
         }
-
-      //  this.x = this.x + this.speed * this.horizontal;
-     //   this.y = this.y + this.speed * this.vertical;
-       
-        
-        }
-
     }
-    update(){
+    update() {
         this.move();
-        this.lookAt(this.lookAtDirection );
+        this.lookAt(this.lookAtDirection);
         this.draw();
     }
 }

@@ -22,15 +22,19 @@ wallBlockArray.push(new WallBlock(10, 16, 32, 32, 'black'));
 wallBlockArray.push(new WallBlock(10, 17, 32, 32, 'black'));
 wallBlockArray.push(new WallBlock(10, 18, 32, 32, 'black'));
 wallBlockArray.push(new WallBlock(10, 19, 32, 32, 'black'));
+wallBlockArray.push(new Block(8, 18, 32, 32, 'brown'));
+wallBlockArray.push(new Block(7, 18, 32, 32, 'brown'));
+wallBlockArray.push(new Block(6, 18, 32, 32, 'brown'));
+wallBlockArray.push(new Block(5, 18, 32, 32, 'brown'));
 var player = new Player(5, 5, 32, 32, 32, 'blue', 1);
 var EnemyArray = [
-  new Enemy(8, 5, 32, 32, 'red', 3, 'right'),
-  new EnemyY(8, 8, 32, 32, 'green', 3, 'up'),
-  new EnemyFollowPlayer(10, 10, 32, 32, 'yellow', 3, 'up'),
+  new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
+  new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
+  new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
+  new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
 ]
-walls = {
 
-};
+
 
 setInterval(() => {
   EnemyArray.forEach(element => {
