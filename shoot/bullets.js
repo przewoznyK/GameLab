@@ -86,7 +86,7 @@ class Bullet {
 
 class PlayerBullet extends Bullet {
     collisionWithTarget() {
-        EnemyArray.forEach((object) => {
+        enemyArray.forEach((object) => {
             if (object.x + object.width >= this.x && object.x < this.x + this.width && object.y + object.height >= this.y && object.y < this.y + this.height) {
                 object.hp--;
                 deleteObjectFromArray(bulletPlayerArray, this);

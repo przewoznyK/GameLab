@@ -84,26 +84,27 @@ class Player {
             document.onkeydown = (e) => {
                 switch (e.key) {
                     case 'a':
+                         this.lookAtDirection = 'left';
                         if (!isSpaceTaken(this.x, this.y, 'left')) {
-                            this.lookAtDirection = 'left';
+                           
                             this.x -= this.speed;
                         }
                         break;
                     case 'd':
+                       this.lookAtDirection = 'right'; 
                         if (!isSpaceTaken(this.x, this.y, 'right')) {
-                            this.lookAtDirection = 'right';
                             this.x += this.speed;
                         }
                         break;
                     case 'w':
+                        this.lookAtDirection = 'up';
                         if (!isSpaceTaken(this.x, this.y, 'up')) {
-                            this.lookAtDirection = 'up';
                             this.y -= this.speed;
                         }
                         break;
                     case 's':
+                        this.lookAtDirection = 'down';
                         if (!isSpaceTaken(this.x, this.y, 'down')) {
-                            this.lookAtDirection = 'down';
                             this.y += this.speed;
                         }
                         break;

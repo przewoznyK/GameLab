@@ -27,7 +27,7 @@ wallBlockArray.push(new Block(7, 18, 32, 32, 'brown'));
 wallBlockArray.push(new Block(6, 18, 32, 32, 'brown'));
 wallBlockArray.push(new Block(5, 18, 32, 32, 'brown'));
 var player = new Player(5, 5, 32, 32, 32, 'blue', 1);
-var EnemyArray = [
+var enemyArray = [
   new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
   new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
   new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
@@ -35,9 +35,11 @@ var EnemyArray = [
 ]
 
 
-
+itemsArray = [
+  new HpItem(5, 15, 32, 32, 'red'),
+];
 setInterval(() => {
-  EnemyArray.forEach(element => {
+  enemyArray.forEach(element => {
     element.timeoutUpdate();
   })
 }, 500);
@@ -45,12 +47,14 @@ function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
   player.update();
-  EnemyArray.forEach(element => {
+  enemyArray.forEach(element => {
     element.update();
   })
   wallBlockArray.forEach(wallBlock => wallBlock.update());
   bulletPlayerArray.forEach(bulletPlayer => bulletPlayer.update());
   bulletEnemyArray.forEach(enemyBullet => enemyBullet.update());
+  itemsArray.forEach(items => items.update());
+
   c.font = '20px Arial';
   c.fillStyle = 'black';
   c.fillText('Hp: ' + player.hp, 10, 20);

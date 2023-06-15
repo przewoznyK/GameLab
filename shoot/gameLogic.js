@@ -3,6 +3,7 @@
 bulletPlayerArray = [];
 bulletEnemyArray = [];
 wallBlockArray = [];
+itemsArray = [];
 // Functions
 
 const utils = {
@@ -40,10 +41,8 @@ const utils = {
 
 function deleteObjectFromArray(array, object) {
     const indexToRemove = array.indexOf(object);
-
     if (indexToRemove !== -1) {
         array.splice(indexToRemove, 1); 
-  
     }
 
 }

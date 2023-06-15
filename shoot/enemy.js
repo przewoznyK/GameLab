@@ -43,6 +43,17 @@ class Enemy {
                 this.eyePositionY = this.y;
         }
     }
+    changeShootDirection(){
+        if (player.x < this.x) {
+            this.lookAtDirection = 'left';
+        } else if (player.x > this.x) {
+            this.lookAtDirection = 'right';
+        } else if (player.y > this.y) {
+            this.lookAtDirection = 'down';
+        } else if (player.y < this.y) {
+            this.lookAtDirection = 'up';
+        }
+    }
     draw() {
         // Enemy square
         c.beginPath();
@@ -60,17 +71,11 @@ class Enemy {
         c.fill;
     }
     move() {
-        throw new Error('Metoda move() musi zostać zaimplementowana przez klasę podrzędną.');
-    }
-    destroyEnemy() {
-        const indexToRemove = EnemyArray.indexOf(this);
-        if (indexToRemove !== -1) {
-            EnemyArray.splice(indexToRemove, 1);
-        };
+        throw new Error('The move() method must be implemented by the subclass.');
     }
     checkCollsionWithPlayer() {
 
-        if (player.x + player.width >= this.x && player.x < this.x + this.width && player.y + player.height >= this.y && player.y < this.y + this.height) {
+        if (player.x + player.width >= this.x + 5 && player.x < this.x + this.width && player.y + player.height >= this.y + 5 && player.y < this.y + this.height) {
             if (!player.untouchableBool) {
                 player.takenDamage(3000);
             }
@@ -83,7 +88,7 @@ class Enemy {
     update() {
         switch (this.hp) {
             case 0:
-                this.destroyEnemy();
+                deleteObjectFromArray(enemyArray, this);
                 break;
             case 1:
                 this.color = 'rgb(250,128,114)';
@@ -129,7 +134,7 @@ class EnemyY extends Enemy {
             }
         } else if (this.direction == 'down') this.direction = 'up';
         else if (this.direction == 'up') this.direction = 'down';
-
+        this.changeShootDirection();
     }
 }
 
@@ -160,11 +165,11 @@ class EnemyFollowingPlayer extends Enemy {
 
         }
         this.followPlayer();
+        this.changeShootDirection();
     }
     followPlayer() {
         if (player.x < this.x) {
             this.direction = 'left';
-
         } else if (player.x > this.x) {
             this.direction = 'right';
         } else if (player.y > this.y) {
@@ -178,6 +183,6 @@ class EnemyFollowingPlayer extends Enemy {
 
 class EnemyNotMoving extends Enemy {
     move() {
-
+        this.changeShootDirection();
     }
 }
