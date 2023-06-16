@@ -81,7 +81,7 @@ class Enemy {
             }
         }
     }
-    timeoutUpdate() {
+    timeOutUpdate() {
         this.move();
         bulletEnemyArray.push(new EnemyBullet(this.x, this.y, this.lookAtDirection, this.color));
     }

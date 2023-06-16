@@ -7,6 +7,7 @@ class WallBlock {
         this.height = height;
         this.color = color;
     }
+    
     draw() {
         // Wall block square
         c.beginPath();

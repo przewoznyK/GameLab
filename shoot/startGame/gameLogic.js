@@ -4,6 +4,8 @@ bulletPlayerArray = [];
 bulletEnemyArray = [];
 wallBlockArray = [];
 itemsArray = [];
+arrayBlocks = [];
+enemyArray = [];
 // Functions
 
 const utils = {

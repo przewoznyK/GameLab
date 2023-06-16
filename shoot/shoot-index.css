@@ -1,0 +1,30 @@
+main {
+    margin: auto;
+    width: 800px;
+    height: 800px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#boxSection {
+    border: 5px solid black;
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 20px;
+    background-color: lightcyan;
+}
+
+.square{
+    color: transparent;
+    background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
