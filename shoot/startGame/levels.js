@@ -3,6 +3,9 @@ class Levels {
         this.prepareForNextLevel();
         this.makeWalls();
         switch (levelCount) {
+            case 0:
+                this.levelZero();
+                break;
             case 1:
                 this.levelOne();
                 break;
@@ -18,7 +21,7 @@ class Levels {
         itemsArray = [];
         arrayBlocks = [];
         enemyArray = [];
-
+        utils.walls = [];
     }
     static makeWalls() {
         for (let i = 1; i < 21; i++) {
@@ -55,9 +58,24 @@ class Levels {
         player.x = utils.withGrid(3);
         player.y = utils.withGrid(3);
         player.lookAtDirection = 'right';
+        enemyArray = [
+            new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
+            new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
+            new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
+            new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
+        ]
 
     }
     static levelTwo() {
+        player.x = utils.withGrid(3);
+        player.y = utils.withGrid(3);
+        player.lookAtDirection = 'right';
+        enemyArray = [
+            new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
+            new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
+            new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
+            new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
+        ]
 
     }
 }

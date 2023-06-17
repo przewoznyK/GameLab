@@ -6,9 +6,9 @@ canvas.height = 800;
 var c = canvas.getContext('2d');
 
 
-var player = new Player(5, 5, 32, 32, 32, 'blue', 1);
+var player = new Player(5, 5, 32, 32, 'blue');
 
-var levelCount = 1;
+var levelCount = 0;
 Levels.nextLevel();
 
 

@@ -6,9 +6,22 @@ class WallBlock {
         this.width = width;
         this.height = height;
         this.color = color;
+        this.type = 'wallblock';
     }
-    
+
     draw() {
+        // Wall block square
+        c.beginPath();
+        c.fillStyle = this.color;
+        c.fillRect(this.x, this.y, this.width, this.height);
+        c.fill;
+        // Wall block border
+        c.lineWidth = 2;
+        c.rect(this.x, this.y, this.width, this.height);
+        c.stroke();
+    }
+
+    static drawContent() {
         // Wall block square
         c.beginPath();
         c.fillStyle = this.color;
@@ -33,6 +46,7 @@ class Block {
         this.height = height;
         this.color = color;
         this.hp = hp;
+        this.type = 'block';
     }
     draw() {
         // Block square

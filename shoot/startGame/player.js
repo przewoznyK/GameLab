@@ -8,10 +8,10 @@ class Player {
     canMoveBool = true;
     eyePositionX = 0;
     eyePositionY = 0;
-    lookAtDirection = 'left';
+    lookAtDirection = 'down';
     collisionResult = 'none';
     untouchableBool = false;
-    constructor(x, y, width, height, speed, color, hp) {
+    constructor(x, y, width, height, color, speed=32, hp = 3) {
         this.x = utils.withGrid(x);
         this.y = utils.withGrid(y);
         this.width = width;
@@ -19,6 +19,7 @@ class Player {
         this.speed = speed;
         this.color = color;
         this.hp = hp;
+        this.type = 'player';
     }
     // Eye position
     lookAt(direction) {
@@ -29,10 +30,6 @@ class Player {
                 break;
             case 'right':
                 this.eyePositionX = this.x + 11;
-                this.eyePositionY = this.y + 5;
-                break;
-            case 'right':
-                this.eyePositionX = this.x + 10;
                 this.eyePositionY = this.y + 5;
                 break;
             case 'up':
@@ -77,6 +74,7 @@ class Player {
         c.fillStyle = 'black';
         c.fillRect(this.eyePositionX, this.eyePositionY, this.width / 2, this.height / 4);
         c.fill;
+        this.lookAt(this.lookAtDirection);
     }
 
     move() {
@@ -122,7 +120,6 @@ class Player {
     }
     update() {
         this.move();
-        this.lookAt(this.lookAtDirection);
         this.draw();
     }
 }
