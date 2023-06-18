@@ -32,7 +32,7 @@ for (let i = 1; i < 21; i++) {
     wallBlockArray.push(new WallBlock(i, 20, 32, 32, 'black'));
     wallBlockArray.push(new WallBlock(20, i, 32, 32, 'black'));
 }
-var activeObject = null;
+var activeObject = new nullBlock(21, 5, 32, 32, 'white');
 
 var wall = new WallBlock(5, 5, 32, 32, 'black');
 
@@ -63,4 +63,5 @@ function animate() {
 
 }
 MouseManagerLeftButton.clickMouseLeftButton();
+MouseManagerRightButton.clickMouseRightButton();
 animate();

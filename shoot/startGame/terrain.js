@@ -68,3 +68,24 @@ class Block {
     }
 }
 
+class nullBlock {
+    constructor(x, y, width, height, color) {
+        this.x = utils.withGrid(x);
+        this.y = utils.withGrid(y);
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.type = 'nullBlock';
+    }
+    draw() {
+        // Block square
+        c.beginPath();
+        c.fillStyle = "rgba(0, 0, 0, 0.5)";
+        c.fillRect(this.x, this.y, this.width, this.height);
+        c.fill;
+    }
+    update() {
+        this.draw();
+    }
+}
+

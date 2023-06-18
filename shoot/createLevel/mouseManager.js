@@ -24,7 +24,9 @@ class MouseManagerMovement {
         else if (name == 'wallblock') {
             activeObject = new WallBlock(21, 5, 32, 32, 'black');
         }
-        else null;
+        else if (name == 'nullBlock') {
+            activeObject = new WallBlock(21, 5, 32, 32, 'white');
+        }
         // Change checkbox color
         optionsCheckboxArray.forEach(option => {
             if (option.checked) {
@@ -51,32 +53,16 @@ class MouseManagerMovement {
         }
         return 'none';
     }
-}
-
-class MouseManagerLeftButton {
-    // Game section
-
     static CantPlaceObject(currentX, currentY) {
         return utils.walls[`${currentX},${currentY}`] || false;
     }
-    static createObjectInMap() {
-        console.log(activeObject.type);
-        switch (activeObject.type) {
-            case 'player':
-                addedObjectArray.push(new Player(activeObject.x / 32, activeObject.y / 32, 32, 32, 'blue'));
-                let block = optionsCheckboxArray.find(obj => obj.name === 'player');
-                block.blocked = true;
-                activeObject = null;
-                break;
-            case 'wallblock':
-                addedObjectArray.push(new WallBlock(activeObject.x / 32, activeObject.y / 32, 32, 32, 'black'));
-                break;
-        }
-    }
+}
+
+class MouseManagerLeftButton {
     static clickMouseLeftButton() {
         document.addEventListener("click", (event) => {
             if (activeLayer == "gameLayer" && activeObject !== null) {
-                if (!this.CantPlaceObject(activeObject.x, activeObject.y)) {
+                if (!MouseManagerMovement.CantPlaceObject(activeObject.x, activeObject.y)) {
                     this.createObjectInMap();
                 }
             }
@@ -85,6 +71,25 @@ class MouseManagerLeftButton {
             }
         });
     }
+    // Game section
+
+    static createObjectInMap() {
+        console.log(activeObject.type);
+        switch (activeObject.type) {
+            case 'player':
+                addedObjectArray.push(new Player(activeObject.x / 32, activeObject.y / 32, 32, 32, 'blue'));
+                let block = optionsCheckboxArray.find(obj => obj.name === 'player');
+                utils.addWall(activeObject.x / 32, activeObject.y / 32);
+                block.checked = false;
+                block.blocked = true;
+                activeObject = new nullBlock(activeObject.x / 32, activeObject.y / 32, 32, 32, 'white');
+                break;
+            case 'wallblock':
+                addedObjectArray.push(new WallBlock(activeObject.x / 32, activeObject.y / 32, 32, 32, 'black'));
+                break;
+        }
+    }
+
     // Checkbox section
     static selectAnObject() {
         for (const option of optionsCheckboxArray) {
@@ -99,5 +104,29 @@ class MouseManagerLeftButton {
                 break;
             }
         }
+    }
+}
+
+class MouseManagerRightButton {
+    static clickMouseRightButton() {
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+            if (MouseManagerMovement.CantPlaceObject(activeObject.x, activeObject.y)) {
+                console.log('jest');
+                let obj = addedObjectArray.find(obj => obj.x === activeObject.x && obj.y === activeObject.y);
+                if (obj) {
+                    deleteObjectFromArray(addedObjectArray, obj);
+                    utils.deleteWall(activeObject.x, activeObject.y);
+                    // Unblock player checkbox
+                    if (obj.type == 'player') {
+                        let unblock = optionsCheckboxArray.find(option => option.name === 'player');
+                        unblock.blocked = false;
+                    }
+
+                }
+            }
+
+        });
+
     }
 }
