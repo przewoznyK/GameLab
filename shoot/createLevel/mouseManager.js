@@ -3,8 +3,6 @@ class MouseManagerMovement {
         activeLayer = MouseManagerMovement.layersDetector();
         if (object !== null) {
             if (activeLayer == 'gameLayer') {
-                // object.x = mouse.x - 16;
-                // object.y = mouse.y - 16;
                 if (mouse.x - 32 > object.x) object.x += 32;
                 else if (mouse.x < object.x) object.x -= 32;
                 if (mouse.y - 32 > object.y) object.y += 32;
@@ -68,6 +66,12 @@ class MouseManagerLeftButton {
             }
             else if (activeLayer == "checkboxLayer") {
                 this.selectAnObject();
+            }
+            else if (activeLayer == "buttonLayer") {
+                var inputElement = document.getElementsByName("nameLevel")[0];
+                var nameLevel = inputElement.value;
+                console.log(addedObjectArray);
+                sendDataToPhp.sendAddedObjects(nameLevel, addedObjectArray);
             }
         });
     }

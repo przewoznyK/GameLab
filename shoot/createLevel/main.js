@@ -22,6 +22,8 @@ var activeLayer = 'none';
 
 layersArray.push(new Layer(700, 10, 80, 120, 'checkboxLayer', 'lightblue'));
 layersArray.push(new Layer(31, 31, 640, 640, 'gameLayer', 'lightgreen'));
+layersArray.push(new Layer(700, 640, 80, 100, 'buttonLayer', 'yellow'));
+sendDataToPhp.createInputText();
 
 optionsCheckboxArray.push(new CheckboxObject(720, 32, 40, 40, 'player'));
 optionsCheckboxArray.push(new CheckboxObject(720, 96, 40, 40, 'wallblock'));
