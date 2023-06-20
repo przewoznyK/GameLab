@@ -5,6 +5,19 @@ canvas.height = 800;
 
 var c = canvas.getContext('2d');
 
+var loadLevelBool;
+var resultUrl = DataFromSavedLevel.takeDataFromUrl()
+.then(resultUrl => {
+  loadLevelBool = resultUrl;
+ console.log(loadLevelBool); 
+})
+.catch(error => {
+  console.log(error);
+});
+
+resultUrl.then(function() {
+  console.log(loadLevelBool);
+});
 
 var player = new Player(5, 5, 32, 32, 'blue');
 
