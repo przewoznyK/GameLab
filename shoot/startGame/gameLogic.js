@@ -7,7 +7,11 @@ itemsArray = [];
 arrayBlocks = [];
 enemyArray = [];
 
+
+
 // Functions
+
+
 
 const utils = {
     withGrid(n) {

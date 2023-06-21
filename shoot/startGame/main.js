@@ -7,27 +7,32 @@ var c = canvas.getContext('2d');
 
 var loadLevelBool;
 var resultUrl = DataFromSavedLevel.takeDataFromUrl()
-.then(resultUrl => {
-  loadLevelBool = resultUrl;
- console.log(loadLevelBool); 
-})
-.catch(error => {
-  console.log(error);
-});
+  .then(resultUrl => {
+    loadLevelBool = resultUrl;
+  })
+  .catch(error => {
+    console.log(error);
+  });
+var levelCount = 3;
+resultUrl.then(function () {
+  if (loadLevelBool) {
+    levelCount = 3;
 
-resultUrl.then(function() {
-  console.log(loadLevelBool);
+  }
+  else {
+
+    itemsArray = [
+      new HpItem(5, 15, 32, 32, 'red'),
+    ];
+  }
+
 });
+  Levels.nextLevel();
 
 var player = new Player(5, 5, 32, 32, 'blue');
 
-var levelCount = 0;
-Levels.nextLevel();
 
 
-itemsArray = [
-  new HpItem(5, 15, 32, 32, 'red'),
-];
 setInterval(() => {
   enemyArray.forEach(element => {
     element.timeOutUpdate();

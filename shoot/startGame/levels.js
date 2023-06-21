@@ -1,5 +1,6 @@
 class Levels {
     static nextLevel() {
+        console.log(1);
         this.prepareForNextLevel();
         this.makeWalls();
         switch (levelCount) {
@@ -11,6 +12,9 @@ class Levels {
                 break;
             case 2:
                 this.levelTwo();
+                break;
+            case 3:
+                this.createdLevel();
                 break;
         }
     }
@@ -59,10 +63,10 @@ class Levels {
         player.y = utils.withGrid(3);
         player.lookAtDirection = 'right';
         enemyArray = [
-            new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
-            new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
-            new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
-            new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
+            new EnemyX(8, 5, 32, 32, 'red'),
+            new EnemyY(8, 8, 32, 32, 'green'),
+            new EnemyFollowingPlayer(10, 10, 32, 32, 'yellow'),
+            new EnemyNotMoving(16, 10, 32, 32, 'orange'),
         ]
 
     }
@@ -71,11 +75,16 @@ class Levels {
         player.y = utils.withGrid(3);
         player.lookAtDirection = 'right';
         enemyArray = [
-            new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
-            new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
-            new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
-            new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
+            new EnemyX(8, 5, 32, 32, 'red'),
+            new EnemyY(8, 8, 32, 32, 'green'),
+            new EnemyFollowingPlayer(10, 10, 32, 32, 'yellow'),
+            new EnemyNotMoving(16, 10, 32, 32, 'orange'),
         ]
+
+    }
+    static createdLevel()
+    {
+        enemyArray = [ new EnemyX(8, 5, 32, 32, 'red') ];
 
     }
 }

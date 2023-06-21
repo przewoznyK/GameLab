@@ -3,7 +3,7 @@ class Enemy {
     eyePositionY = 0;
     lookAtDirection = 'left';
     collisionResult = 'none';
-    constructor(x, y, width, height, speed, color, hp, direction) {
+    constructor(x, y, width, height, color, direction='right', speed=32, hp=3 ) {
         this.x = utils.withGrid(x);
         this.y = utils.withGrid(y);
         this.width = width;
@@ -69,6 +69,7 @@ class Enemy {
         c.fillStyle = 'black';
         c.fillRect(this.eyePositionX, this.eyePositionY, this.width / 2, this.height / 4);
         c.fill;
+        this.lookAt(this.lookAtDirection);
     }
     move() {
         throw new Error('The move() method must be implemented by the subclass.');
@@ -97,7 +98,7 @@ class Enemy {
                 this.color = 'rgb(205,92,92)';
                 break;
         }
-        this.lookAt(this.lookAtDirection);
+
         this.checkCollsionWithPlayer()
         this.draw();
 
@@ -105,6 +106,7 @@ class Enemy {
 }
 
 class EnemyX extends Enemy {
+    type = 'enemyX';
     move() {
         if (!isSpaceTaken(this.x, this.y, this.direction)) {
             if (this.direction == 'left') {
@@ -122,6 +124,8 @@ class EnemyX extends Enemy {
 }
 
 class EnemyY extends Enemy {
+    type = 'enemyY';
+    direction = 'up';
     move() {
         if (!isSpaceTaken(this.x, this.y, this.direction)) {
             if (this.direction == 'up') {
@@ -139,6 +143,7 @@ class EnemyY extends Enemy {
 }
 
 class EnemyFollowingPlayer extends Enemy {
+    type = 'enemyFollowingPlayer';
     move() {
         {
             if (!isSpaceTaken(this.x, this.y, this.direction)) {
@@ -182,6 +187,7 @@ class EnemyFollowingPlayer extends Enemy {
 }
 
 class EnemyNotMoving extends Enemy {
+    type = 'enemyNotMoving';
     move() {
         this.changeShootDirection();
     }

@@ -16,14 +16,28 @@ class MouseManagerMovement {
         }
     }
     static createObjectToFollowingMouse(name) {
-        if (name == 'player') {
-            activeObject = new Player(21, 5, 32, 32, 'blue');
-        }
-        else if (name == 'wallblock') {
-            activeObject = new WallBlock(21, 5, 32, 32, 'black');
-        }
-        else if (name == 'nullBlock') {
-            activeObject = new WallBlock(21, 5, 32, 32, 'white');
+        switch (name) {
+            case 'player':
+                activeObject = new Player(21, 5, 32, 32, 'blue');
+                break;
+            case 'wallblock':
+                activeObject = new WallBlock(21, 5, 32, 32, 'black');
+                break;
+            case 'enemyX':
+                activeObject = new EnemyX(21, 5, 32, 32, 'red');
+                break;
+            case 'enemyY':
+                activeObject = new EnemyY(21, 5, 32, 32, 'green');
+                break;
+            case 'enemyFollowingPlayer':
+                activeObject = new EnemyFollowingPlayer(21, 5, 32, 32, 'yellow');
+                break;
+            case 'enemyNotMoving':
+                activeObject = new EnemyNotMoving(21, 5, 32, 32, 'orange');
+                break;
+            case 'nullBlock':
+                activeObject = new WallBlock(21, 5, 32, 32, 'white');
+                break;
         }
         // Change checkbox color
         optionsCheckboxArray.forEach(option => {
@@ -88,6 +102,22 @@ class MouseManagerLeftButton {
                 block.blocked = true;
                 activeObject = new nullBlock(activeObject.x / 32, activeObject.y / 32, 32, 32, 'white');
                 break;
+            case 'enemyX':
+                addedObjectArray.push(new EnemyX(activeObject.x / 32, activeObject.y / 32, 32, 32, 'red'));
+                utils.addWall(activeObject.x / 32, activeObject.y / 32);
+                break;
+            case 'enemyY':
+                addedObjectArray.push(new EnemyY(activeObject.x / 32, activeObject.y / 32, 32, 32, 'green'));
+                utils.addWall(activeObject.x / 32, activeObject.y / 32);
+                break;
+            case 'enemyFollowingPlayer':
+                addedObjectArray.push(new EnemyFollowingPlayer(activeObject.x / 32, activeObject.y / 32, 32, 32, 'yellow'));
+                utils.addWall(activeObject.x / 32, activeObject.y / 32);
+                break;
+            case 'enemyNotMoving':
+                addedObjectArray.push(new EnemyNotMoving(activeObject.x / 32, activeObject.y / 32, 32, 32, 'orange'));
+                utils.addWall(activeObject.x / 32, activeObject.y / 32);
+                break;
             case 'wallblock':
                 addedObjectArray.push(new WallBlock(activeObject.x / 32, activeObject.y / 32, 32, 32, 'black'));
                 break;
@@ -116,9 +146,10 @@ class MouseManagerRightButton {
         document.addEventListener("contextmenu", function (event) {
             event.preventDefault();
             if (MouseManagerMovement.CantPlaceObject(activeObject.x, activeObject.y)) {
-                console.log('jest');
+                console.log(1);
                 let obj = addedObjectArray.find(obj => obj.x === activeObject.x && obj.y === activeObject.y);
                 if (obj) {
+                    console.log(2);
                     deleteObjectFromArray(addedObjectArray, obj);
                     utils.deleteWall(activeObject.x, activeObject.y);
                     // Unblock player checkbox
