@@ -20,6 +20,10 @@ class Player {
         this.color = color;
         this.hp = hp;
         this.type = 'player';
+        // Variables for restart player
+        this.startX = utils.withGrid(x);
+        this.startY = utils.withGrid(y);
+        this.startHp = hp;
     }
     // Eye position
     lookAt(direction) {

@@ -1,9 +1,12 @@
 class Levels {
-    static nextLevel() {
-        console.log(1);
-        this.prepareForNextLevel();
+    static nextLevel(firstLevelBool = false) {
+        if(!firstLevelBool)    this.prepareForNextLevel();
+     
         this.makeWalls();
         switch (levelCount) {
+            case -1:
+                this.levelCreated();
+                break;
             case 0:
                 this.levelZero();
                 break;
@@ -12,9 +15,6 @@ class Levels {
                 break;
             case 2:
                 this.levelTwo();
-                break;
-            case 3:
-                this.createdLevel();
                 break;
         }
     }
@@ -52,15 +52,18 @@ class Levels {
         wallBlockArray.push(new Block(6, 18, 32, 32, 'brown'));
         wallBlockArray.push(new Block(5, 18, 32, 32, 'brown'));
         enemyArray = [
-            new EnemyX(8, 5, 32, 32, 32, 'red', 3, 'right'),
-            new EnemyY(8, 8, 32, 32, 32, 'green', 3, 'up'),
-            new EnemyFollowingPlayer(10, 10, 32, 32, 32, 'yellow', 3, 'up'),
-            new EnemyNotMoving(16, 10, 32, 32, 32, 'orange', 3, 'left'),
+            new EnemyX(8, 2, 32, 32, 'red'),
+            new EnemyX(12, 8, 32, 32, 'red'),
+            new EnemyX(16, 12, 32, 32, 'red'),
+            new EnemyX(18, 19, 32, 32, 'red'),
+
         ]
     }
     static levelOne() {
         player.x = utils.withGrid(3);
         player.y = utils.withGrid(3);
+        player.startX = utils.withGrid(3);
+        player.startY = utils.withGrid(3);
         player.lookAtDirection = 'right';
         enemyArray = [
             new EnemyX(8, 5, 32, 32, 'red'),
@@ -73,6 +76,8 @@ class Levels {
     static levelTwo() {
         player.x = utils.withGrid(3);
         player.y = utils.withGrid(3);
+        player.startX = utils.withGrid(3);
+        player.startY = utils.withGrid(3);
         player.lookAtDirection = 'right';
         enemyArray = [
             new EnemyX(8, 5, 32, 32, 'red'),
@@ -82,10 +87,7 @@ class Levels {
         ]
 
     }
-    static createdLevel()
-    {
-        enemyArray = [ new EnemyX(8, 5, 32, 32, 'red') ];
-
+    static levelCreated() {
     }
 }
 

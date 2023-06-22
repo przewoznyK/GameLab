@@ -5,7 +5,6 @@ class DataFromSavedLevel {
       const params = new URLSearchParams(window.location.search);
       const levelName = params.get('levelName');
       const levelDataURL = '../createLevel/createdLevels/' + levelName;
-
       fetch(levelDataURL)
         .then(response => {
           if (!response.ok) {
@@ -44,13 +43,11 @@ class DataFromSavedLevel {
           enemyArray.push(new EnemyNotMoving(element['x'] / 32, element['y'] / 32, 32, 32, element['color'] ));
           break;
         case 'wallblock':
-          wallBlockArray.push(new WallBlock(element['x'] / 32, element['y'] / 32, 32, 32, ));
+          console.log('wallblock');
+          wallBlockArray.push(new WallBlock(element['x'] / 32, element['y'] / 32, 32, 32, 'black'));
           break;
 
       }
-
-      //    var player = new Player(element['x']/32, element['y']/32, 32, 32, 'blue');
-
     });
   }
 }

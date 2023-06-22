@@ -8,7 +8,9 @@ if(isset($_POST)){
 
   foreach ($fileList as $file) {
     if (is_file($folderPath . $file)) {
-        if($file == $json_decode['nameLevel']) break;
+        if($file == $json_decode['nameLevel']){
+          break;
+        }
     }
 }
   file_put_contents($folderPath.'/'.$json_decode['nameLevel'].'.json', $data);

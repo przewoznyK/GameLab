@@ -45,10 +45,7 @@ class MouseManagerMovement {
                 option.checked = false;
             }
             if (option.name == name) option.checked = true;
-            //console.log(option.name + ' => ' +option.checked);
-
         });
-
 
     }
     static layersDetector() {
@@ -82,17 +79,28 @@ class MouseManagerLeftButton {
                 this.selectAnObject();
             }
             else if (activeLayer == "buttonLayer") {
+                // SaveLevel
                 var inputElement = document.getElementsByName("nameLevel")[0];
                 var nameLevel = inputElement.value;
                 console.log(addedObjectArray);
-                sendDataToPhp.sendAddedObjects(nameLevel, addedObjectArray);
+                if (!addedObjectArray.find(obj => obj.type === 'player')) {
+                    sendDataToPhp.sendDataStatusText('noPlayer');
+                }
+                else if(!addedObjectArray.find(obj => obj.type === 'enemyX' || obj.type === 'enemyY' || obj.type === 'enemyFollowingPlayer' || obj.type === 'enemyNotMoving'))
+                {
+                    sendDataToPhp.sendDataStatusText('noEnemy');
+                }
+                else {
+                    sendDataToPhp.sendDataStatusText('success');
+                    sendDataToPhp.sendAddedObjects(nameLevel, addedObjectArray);
+
+                }
             }
         });
     }
     // Game section
 
     static createObjectInMap() {
-        console.log(activeObject.type);
         switch (activeObject.type) {
             case 'player':
                 addedObjectArray.push(new Player(activeObject.x / 32, activeObject.y / 32, 32, 32, 'blue'));
@@ -146,10 +154,8 @@ class MouseManagerRightButton {
         document.addEventListener("contextmenu", function (event) {
             event.preventDefault();
             if (MouseManagerMovement.CantPlaceObject(activeObject.x, activeObject.y)) {
-                console.log(1);
                 let obj = addedObjectArray.find(obj => obj.x === activeObject.x && obj.y === activeObject.y);
                 if (obj) {
-                    console.log(2);
                     deleteObjectFromArray(addedObjectArray, obj);
                     utils.deleteWall(activeObject.x, activeObject.y);
                     // Unblock player checkbox

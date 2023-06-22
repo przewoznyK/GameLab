@@ -13,10 +13,10 @@ var resultUrl = DataFromSavedLevel.takeDataFromUrl()
   .catch(error => {
     console.log(error);
   });
-var levelCount = 3;
+var levelCount = 0;
 resultUrl.then(function () {
   if (loadLevelBool) {
-    levelCount = 3;
+    levelCount = -1;
 
   }
   else {
@@ -27,11 +27,14 @@ resultUrl.then(function () {
   }
 
 });
-  Levels.nextLevel();
 
+var startLevel = false;
 var player = new Player(5, 5, 32, 32, 'blue');
 
-
+setTimeout(() => {
+  startLevel = true;
+  Levels.nextLevel(true);
+}, 100);
 
 setInterval(() => {
   enemyArray.forEach(element => {
@@ -55,9 +58,16 @@ function animate() {
   c.fillStyle = 'black';
   c.fillText('Hp: ' + player.hp, 10, 20);
 
-  if (enemyArray.length === 0) {
+  if (enemyArray.length === 0 && startLevel) {
     levelCount++;
     Levels.nextLevel();
+  }
+  if (player.hp == 0) {
+
+    Levels.nextLevel();
+    player.hp = player.startHp;
+    player.x = player.startX;
+    player.y = player.startY;
   }
 }
 
