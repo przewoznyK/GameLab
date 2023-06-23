@@ -1,2 +1,0 @@
-nameLevel
-[{"x":448,"y":224,"width":32,"height":32,"color":"black","type":"wallblock"}]

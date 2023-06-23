@@ -5,15 +5,20 @@ if(isset($_POST)){
   $json_decode = json_decode($data, true);
   $folderPath = 'createdLevels';
   $data =  json_encode($json_decode['addedObjectArray']);
-
+  $continue = false;
+  $fileList = scandir($folderPath);
   foreach ($fileList as $file) {
-    if (is_file($folderPath . $file)) {
-        if($file == $json_decode['nameLevel']){
+
+        if($file == $json_decode['nameLevel'].'.json'){
+          file_put_contents($folderPath.'/'.$json_decode['nameLevel'].'-'.uniqid().'.json', $data);
+          $continue = false;
           break;
         }
-    }
+    
 }
-  file_put_contents($folderPath.'/'.$json_decode['nameLevel'].'.json', $data);
+if($continue)
+{
+    file_put_contents($folderPath.'/'.$json_decode['nameLevel'].'.json', $data);
+}
 
 }
-?>

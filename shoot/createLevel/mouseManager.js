@@ -83,7 +83,11 @@ class MouseManagerLeftButton {
                 var inputElement = document.getElementsByName("nameLevel")[0];
                 var nameLevel = inputElement.value;
                 console.log(addedObjectArray);
-                if (!addedObjectArray.find(obj => obj.type === 'player')) {
+                if(nameLevel == ''){
+                    sendDataToPhp.sendDataStatusText('noNameLevel');
+
+                }
+                else if (!addedObjectArray.find(obj => obj.type === 'player')) {
                     sendDataToPhp.sendDataStatusText('noPlayer');
                 }
                 else if(!addedObjectArray.find(obj => obj.type === 'enemyX' || obj.type === 'enemyY' || obj.type === 'enemyFollowingPlayer' || obj.type === 'enemyNotMoving'))

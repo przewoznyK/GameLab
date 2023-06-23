@@ -34,7 +34,7 @@ var player = new Player(5, 5, 32, 32, 'blue');
 setTimeout(() => {
   startLevel = true;
   Levels.nextLevel(true);
-}, 100);
+}, 200);
 
 setInterval(() => {
   enemyArray.forEach(element => {

@@ -20,12 +20,14 @@
 
     $fileList = scandir($folderPath);
     $createdLevelsNames = [];
+    echo '<table style="border: 1px solid black;"><tr><th style="text-align: center; border: 1px solid black; margin: auto;">Levels</th></tr>';
     foreach ($fileList as $file) {
         if (is_file($folderPath . '/' . $file)) {
-            echo '<a href="' . $targetLocation . $file . '">' . $file . '</a><br>';
+            echo '<tr><td style="border: 1px solid black;"><a href="' . $targetLocation . $file . '">' . $file . '</a></td></tr>';
         }
     }
-
+    echo '</table>';
+    
     ?>
 </body>
 

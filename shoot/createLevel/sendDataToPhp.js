@@ -22,7 +22,7 @@ class sendDataToPhp {
         var input = document.createElement('input');
 
         input.type = 'text';
-        input.value = 'nameLevel';
+        input.value = '';
         input.name = 'nameLevel';
         input.style.position = 'fixed';
         input.style.left = '830px';
@@ -37,7 +37,15 @@ class sendDataToPhp {
           existingText.parentNode.removeChild(existingText);
         }
         switch (message) {
-
+            case 'noNameLevel':
+                var text = document.createElement('span');
+                text.innerText = 'Enter the name level';
+                text.style.position = 'fixed';
+                text.style.left = '830px';
+                text.style.top = '50px';
+                text.classList.add('message-text');
+                document.body.appendChild(text);
+                break;
             case 'noPlayer':
                 var text = document.createElement('span');
                 text.innerText = 'Add player to map';

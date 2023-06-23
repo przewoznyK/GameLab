@@ -86,7 +86,8 @@ class Enemy {
         this.move();
         bulletEnemyArray.push(new EnemyBullet(this.x, this.y, this.lookAtDirection, this.color));
     }
-    update() {
+    changeColorAccordingToHp()
+    {
         switch (this.hp) {
             case 0:
                 deleteObjectFromArray(enemyArray, this);
@@ -98,8 +99,11 @@ class Enemy {
                 this.color = 'rgb(205,92,92)';
                 break;
         }
+    }
+    update() {
 
-        this.checkCollsionWithPlayer()
+        this.changeColorAccordingToHp();
+        this.checkCollsionWithPlayer();
         this.draw();
 
     }
@@ -119,7 +123,21 @@ class EnemyX extends Enemy {
             }
         } else if (this.direction == 'left') this.direction = 'right';
         else if (this.direction == 'right') this.direction = 'left';
+    }
 
+    changeColorAccordingToHp()
+    {
+        switch (this.hp) {
+            case 0:
+                deleteObjectFromArray(enemyArray, this);
+                break;
+            case 1:
+                this.color = 'rgb(250,128,114)';
+                break;
+            case 2:
+                this.color = 'rgb(205,92,92)';
+                break;
+        }
     }
 }
 
@@ -139,6 +157,20 @@ class EnemyY extends Enemy {
         } else if (this.direction == 'down') this.direction = 'up';
         else if (this.direction == 'up') this.direction = 'down';
         this.changeShootDirection();
+    }
+    changeColorAccordingToHp()
+    {
+        switch (this.hp) {
+            case 0:
+                deleteObjectFromArray(enemyArray, this);
+                break;
+            case 1:
+                this.color = 'rgb(144,238,144)';
+                break;
+            case 2:
+                this.color = 'rgb(154,205,50)';
+                break;
+        }
     }
 }
 
@@ -172,6 +204,20 @@ class EnemyFollowingPlayer extends Enemy {
         this.followPlayer();
         this.changeShootDirection();
     }
+    changeColorAccordingToHp()
+    {
+        switch (this.hp) {
+            case 0:
+                deleteObjectFromArray(enemyArray, this);
+                break;
+            case 1:
+                this.color = 'rgb(255, 250, 160)';
+                break;
+            case 2:
+                this.color = 'rgb(240, 230, 140)';
+                break;
+        }
+    }
     followPlayer() {
         if (player.x < this.x) {
             this.direction = 'left';
@@ -190,5 +236,19 @@ class EnemyNotMoving extends Enemy {
     type = 'enemyNotMoving';
     move() {
         this.changeShootDirection();
+    }
+    changeColorAccordingToHp()
+    {
+        switch (this.hp) {
+            case 0:
+                deleteObjectFromArray(enemyArray, this);
+                break;
+            case 1:
+                this.color = 'rgb(255,204,153)';
+                break;
+            case 2:
+                this.color = 'rgb(255,178,102)';
+                break;
+        }
     }
 }
