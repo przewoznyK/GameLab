@@ -1,2 +1,2 @@
 # GameLab
-Demo: https://przewoznyk.github.io/GameLab/
+Demo: https://gamelabdemo.000webhostapp.com/
